@@ -1,5 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Curso.ContentContext;
+﻿using Curso.ContentContext;
+using Curso.ContentContext.Enums;
 
 var articles = new List<Article>
 {
@@ -18,9 +18,9 @@ var articles = new List<Article>
 
 // Cursos
 var courses = new List<Course>();
-var c_csharp = new Course("Curso de C#", "curso-csharp");
-var c_dotnet = new Course("Curso de C#", "curso-dotnet");
-var c_oop = new Course("Curso de C#", "curso-c_oop");
+var c_csharp = new Course("Curso basico de C#", "curso-csharp", EContentLevel.Beginner);
+var c_dotnet = new Course("Curso basico de .NET", "curso-dotnet", EContentLevel.Intermediary);
+var c_oop = new Course("Curso fundamentos da orientação a objeto", "curso-c_oop", EContentLevel.Beginner);
 
 //Adiciona curos
 courses.Add(c_csharp);
@@ -29,8 +29,8 @@ courses.Add(c_oop);
 
 //Items Carreira
 var careerDotnet = new Career("Especialista .NET", "especialista-dotnet");
-var careerItem2 = new CareerItem(2, "Aprenda OOP", "", null);
-var careerItem = new CareerItem(1, "Comece por aqui", "", c_csharp);
+var careerItem2 = new CareerItem(2, "Aprenda OOP", "", c_oop);
+var careerItem = new CareerItem(1, "Aprenda csharp", "", c_csharp);
 var careerItem3 = new CareerItem(3, "Aprenda .NET", "", c_dotnet);
 
 // Adiciona item curso
@@ -46,17 +46,20 @@ var careers = new List<Career>
 
 foreach (var career in careers)
 {
-    Console.WriteLine(career.Title);
+    Console.WriteLine();
+    Console.WriteLine($"--------------   Carreira: {career.Title}   --------------");
     foreach (var item in career.Items.OrderBy(x => x.Order))
     {
+        Console.WriteLine("");
         Console.WriteLine($"{item.Order} - {item.Title}");
-        Console.WriteLine($"    Curso: {item.Course?.Title}");
-        Console.WriteLine($"    Nível: {item.Course?.Level}");
+        Console.WriteLine($"Curso: {item.Course?.Title}");
+        Console.WriteLine($"Nivel: {item.Course?.Level.ToString()}");
 
         foreach (var not in item.Notifications)
         {
             Console.WriteLine($"{not.Property} - {not.Message}");
         }
     }
+    Console.WriteLine("------------------------------------------------------");
 }
 
